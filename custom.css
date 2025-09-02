@@ -1,0 +1,6 @@
+.postcards-content ul,
+.postcards-content ol {
+  display: inline-block;   /* makes the list shrink to its content */
+  text-align: left;        /* centers the whole list */
+  padding-left: 1.2em;     /* standard bullet indentation */
+}

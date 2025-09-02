@@ -1,20 +1,27 @@
 ---
-title: "Xiang Guo"
-image: "xiang.jpg"
+title: "Nicholas Nasser"
 links:
-  - label: LinkedIn
-    url: "https://linkedin.com/"
-  - label: Twitter
-    url: "https://twitter.com/"
   - label: GitHub
-    url: "https://github.com/"
-  - label: Email
-    url: "mailto:email@email.com"
+    url: "https://github.com/sous20"
 output:
-  postcards::jolla_blue
+  postcards::jolla_blue:
+    css: "custom.css"
 ---
  
-Raised in New Jersey by two lawyers, I am now an aspiring data artist and 
-competitive rock climber. I moved to Seattle to fly floatplanes, but I got 
-caught up in the startup world. Send me a WhatsApp message if you have good 
-turnip prices.
+Hi everybody, my name is Nicholas and I am a junior at the University of Texas studying Statistics and Data Science. I love to work out, play sports, listen to music, and play the piano.
+
+<img src="images/IMG_0457.PNG" width="200" style="border-radius: 0px;">
+
+Here is a list of my favorite tennis players!
+
+* Novak Djokovic
+* Roger Federer
+* Rafael Nadal
+* Jannik Sinner
+
+Time of creation:
+
+```{r, echo = FALSE}
+Sys.time()
+```
+

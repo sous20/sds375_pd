@@ -1,0 +1,13 @@
+name: "class-website"
+output_dir: "docs"
+
+navbar:
+  title: "My Class Site"
+  left:
+    - text: "Home"
+      href: index.html
+
+output:
+  html_document:
+    theme: cosmo
+

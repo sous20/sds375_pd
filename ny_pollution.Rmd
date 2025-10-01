@@ -1,0 +1,46 @@
+---
+title: "New York Pollution Data Analysis"
+author: "Nicholas Nasser"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+```
+
+Read ata
+
+```{r}
+data = read.csv("ny_pollution.csv.gz")
+data$date = as.Date(data$date)
+```
+
+Aggregate deaths by week to match pollution records
+
+```{r}
+weekly_data <- data %>%
+  arrange(date) %>%
+  fill(pollution, .direction = "down") %>%
+  mutate(week_start = floor_date(date, "week", week_start = 1)) %>%
+  group_by(week_start) %>%
+  summarise(
+    death = sum(death, na.rm = TRUE),
+    pollution = first(pollution)
+  )
+```
+
+Plot correlation between deaths and pollution on a weekly scale
+
+```{r}
+cor(weekly_data$death, weekly_data$pollution, use = "complete.obs")
+
+lm = lm(weekly_data$death ~ weekly_data$pollution)
+plot(weekly_data$pollution, weekly_data$death, pch = 16, cex = 0.5)
+abline(lm)
+```
+

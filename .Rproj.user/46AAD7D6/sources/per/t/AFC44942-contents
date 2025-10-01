@@ -1,0 +1,50 @@
+---
+title: "New York Pollution Data Analysis"
+author: "Nicholas Nasser"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+```
+
+Statement: There seems to be no real correlation between pollution and deaths in New York. To support this statement, I did some data cleaning and analysis shown below.
+
+
+First, I read the data into R.
+
+```{r}
+data = read.csv("ny_pollution.csv.gz")
+data$date = as.Date(data$date)
+```
+
+Then, I aggregated deaths by week to match the weekly records of pollution in the data set.
+
+```{r}
+weekly_data <- data %>%
+  arrange(date) %>%
+  fill(pollution, .direction = "down") %>%
+  mutate(week_start = floor_date(date, "week", week_start = 1)) %>%
+  group_by(week_start) %>%
+  summarise(
+    death = sum(death, na.rm = TRUE),
+    pollution = first(pollution)
+  )
+```
+
+Finally, I plotted the correlation between deaths and pollution, now on a standardized weekly scale.
+
+```{r}
+cor(weekly_data$death, weekly_data$pollution, use = "complete.obs")
+
+lm = lm(weekly_data$death ~ weekly_data$pollution)
+plot(weekly_data$pollution, weekly_data$death, pch = 16, cex = 0.5)
+abline(lm)
+```
+
+The plot shows that there is not really any strong correlation between the two variables.
